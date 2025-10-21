@@ -1,24 +1,13 @@
 <h2>User List</h2>
 
-<!-- Use the @if block to unwrap the observable using the async pipe -->
 @if (users$ | async; as users) {
-  <!-- Now, check if the unwrapped array has items -->
-  @if (users) {
-    <ul>
-      <!-- Use the @for block to loop through the unwrapped users array -->
-      @for (user of users; track user.id) {
-        <li>{{ user.name }}</li>
-      }
-      @empty {
-        <!-- This block is shown if the array is empty -->
-        <p>No users found.</p>
-      }
-    </ul>
-  } @else {
-    <!-- This else block handles the case where the array is empty -->
-    <p>No users found.</p>
+
+<ul>
+  @for (user of users; track user.id) {
+  <li>{{ user.name }} {{ user.id }}</li>
   }
+</ul>
 } @else {
-  <!-- This else block handles the case where the observable hasn't emitted yet -->
-  <p>Loading users...</p>
+Loading users...
+
 }

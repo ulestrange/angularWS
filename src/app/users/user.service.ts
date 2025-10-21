@@ -1,7 +1,7 @@
 import { Injectable, inject} from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { User} from './user.interface'
 import { environment } from '../../environments/environment';
 
@@ -17,6 +17,7 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl).pipe(
+      retry(3),
       catchError(this.handleError)
     )
   }
@@ -28,21 +29,18 @@ export class UserService {
   }
 
 
-private handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'An unknown error occurred';
-
-
-    if (error.status === 404) {
-      errorMessage = 'User not found (404)';
-    } else if (error.status === 500) {
-      errorMessage = 'Server error (500). Please try again later.';
-    } else if (error.error instanceof ErrorEvent) {
-      // Client-side or network error
-      errorMessage = `Network error: ${error.error.message}`;
+private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
     }
-
-    console.error('API Error:', errorMessage, error);
-    return throwError(() => new Error(errorMessage));
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
   

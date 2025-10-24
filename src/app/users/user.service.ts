@@ -29,6 +29,39 @@ export class UserService {
   }
 
 
+
+
+  updateUser(id: string, user: User): Observable<User> {
+    console.log('subscribing to update/' + id);
+    let uri = `${this.apiUrl}/${id}`
+    return this.http.put<User>(uri, user)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  deleteUser(id: string) {
+  let uri = `${this.apiUrl}/${id}`
+  return this.http.delete<User>(uri)
+    .pipe(
+      catchError(this.handleError)
+    )
+}
+  
+    /** adapted from https://angular.io/guide/http-send-data-to-server */
+  
+  // addGradeHistory(gradeHistory: GradeHistory): Observable<GradeHistory> {
+  //   return this.http.post<GradeHistory>(this.gradeHistoryUri, gradeHistory)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     );
+  // }
+  
+
+
+
+
 private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

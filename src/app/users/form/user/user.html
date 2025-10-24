@@ -1,0 +1,39 @@
+ <form [formGroup]="form" (ngSubmit)="onSubmit()" class="user-form">
+      <label>
+        Name:
+        <input type="text" formControlName="name" />
+        @if(form.controls.name.invalid && form.controls.name.touched) {
+          <span class="error">Name is required (min 2 chars)</span>
+        }
+      </label>
+
+      <label>
+        Phone Number:
+        <input type="tel" formControlName="phonenumber" />
+        @if(form.controls.phonenumber.invalid && form.controls.phonenumber.touched) {
+          <span class="error">Valid phone number required</span>
+        }
+      </label>
+
+      <label>
+        Email:
+        <input type="email" formControlName="email" />
+        @if(form.controls.email.invalid && form.controls.email.touched) {
+          <span class="error">Valid email required</span>
+        }
+      </label>
+
+      <label>
+        Date of Birth (optional):
+        <input type="date" formControlName="dob" />
+      </label>
+
+      <button type="submit" [disabled]="form.invalid">Submit</button>
+    </form>
+
+    @if(user()) {
+      <div class="preview">
+        <h3>User Preview:</h3>
+        <pre>{{ user() | json }}</pre>
+      </div>
+    }

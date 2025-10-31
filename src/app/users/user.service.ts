@@ -13,7 +13,7 @@ export class UserService {
 
   private http =  inject(HttpClient);
 
-  private apiUrl = `${environment.apiUri}/users`  // for now - we should read this from an env variable
+  private apiUrl = `${environment.apiUri}/users`  
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl).pipe(
@@ -24,7 +24,7 @@ export class UserService {
 
   
   /** Get a single user by ID */
-  getUserById(id: number): Observable<User> {
+  getUserById(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 

@@ -12,9 +12,9 @@ import { AsyncPipe } from '@angular/common';
 })
 export class Users {
 
-  service = inject(UserService)
+
   
   private dataService = inject(UserService);
-  users$: Observable<User[]> = this.service.getUsers();
+  users$: Observable<User[]> = this.dataService.getUsers();
 
 }

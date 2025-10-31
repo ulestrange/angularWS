@@ -6,8 +6,11 @@
   @for (user of users; track user.id) {
   <li>{{ user.name }} {{ user.id }}</li>
   }
+  @empty {
+    {{errorMessage || 'No users to display'}}
+  }
 </ul>
 } @else {
-Loading users...
+    Loading users...
 
 }

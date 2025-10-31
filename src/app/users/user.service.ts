@@ -1,7 +1,7 @@
 import { Injectable, inject} from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, retry, throwError } from 'rxjs';
+import { catchError, delay, Observable, retry, throwError } from 'rxjs';
 import { User} from './user.interface'
 import { environment } from '../../environments/environment';
 
@@ -51,14 +51,19 @@ export class UserService {
   
     /** adapted from https://angular.io/guide/http-send-data-to-server */
   
-  // addGradeHistory(gradeHistory: GradeHistory): Observable<GradeHistory> {
-  //   return this.http.post<GradeHistory>(this.gradeHistoryUri, gradeHistory)
+  // addUser(user: User): Observable<User> {
+  //   return this.http.post<User>(this.userUri, user)
   //     .pipe(
   //       catchError(this.handleError)
   //     );
   // }
   
-
+createUser(data: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
 
 

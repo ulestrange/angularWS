@@ -1,0 +1,13 @@
+<h2>User List</h2>
+
+@if (users$ | async; as users) {
+
+<ul>
+  @for (user of users; track user.id) {
+  <li>{{ user.name }} {{ user.id }}</li>
+  }
+</ul>
+} @else {
+Loading users...
+
+}

@@ -1,0 +1,73 @@
+<p>test-form works!</p>
+
+<!-- <label for="username">User Name: </label>
+<input id="username" type="text" [formControl]="userName">
+
+<label for="dob">Date of Birth </label>
+<input id="dob" type="date" [formControl]="dob">
+
+<p>Current Value {{userName.value}}</p>
+
+<p>Current Value {{dob.value | date}}</p>
+
+<button type="button" (click)="updateName()">Update Name</button> -->
+
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+  <div>
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="name" />
+  </div>
+  <div>
+    <label for="phonenumber">
+      Phone Number </label>
+    <input type="tel" formControlName="phonenumber" id="phonenumber" />
+  </div>
+  <div>
+    <label for="email">
+      Email: </label>
+    <input type="email" formControlName="email" id="email" />
+  </div>
+  <div>
+
+    <label for="dob">
+      Date of Birth (optional): </label>
+    <input type="date" formControlName="dob" id="dob" />
+
+  </div>
+
+
+  <div formArrayName="tags">
+
+    @for(tag of tags.controls; track i ; let i=$index;)
+    {
+    <div>
+      <label for="tag-{{i}}">Tag {{i+1}}:</label>
+      <input [formControlName]="i" placeholder="Enter tag" id="tag-{{i}}" />
+      <button type="button" (click)="removeTag(i)">Remove</button>
+    </div>
+  }
+    <button type="button" (click)="addTag()">Add Tag</button>
+  </div>
+
+
+  <!-- <button type="button" (click)="addTag()">Add Tag</button> -->
+  <button type="submit">Submit</button>
+</form>
+
+<div>Values
+  <p>{{userForm.get('name')?.value}}</p>
+  <p>{{userForm.get('phonenumber')?.value}}</p>
+  <p>{{userForm.get('email')?.value}}</p>
+  <p>{{userForm.get('dob')?.value | date}}</p>
+</div>
+
+  <!-- <div formArrayName="tags">
+    @for (tag of tags.controls; track tag ; let i=$index; ){
+    <div>  </div> [formControlName]="i"> 
+      <label for="tag-{{i}}">tag {{i+1}}:</label>
+      <input id="tag-{{i}}" type="text" formControlName="tag">
+    </div>
+    }
+
+  </div> -->

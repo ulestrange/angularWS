@@ -4,6 +4,9 @@ export interface User {
     phonenumber: string;
     email: string;
     dob?: Date;
+    tags: string[];
     dateJoined?: Date,
     lastUpdated?: Date
 }
+
+

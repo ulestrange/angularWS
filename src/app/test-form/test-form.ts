@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {DatePipe } from '@angular/common'
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -32,7 +32,7 @@ export class TestForm {
 
 
 
-  private fb = new FormBuilder();
+  private fb = inject (FormBuilder);
 
   userForm = this.fb.group({
     name: [''],

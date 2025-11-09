@@ -5,7 +5,7 @@ import { TestForm } from './test-form/test-form';
 
 export const routes: Routes = [
     {path: '', component: Home},
-    {path: 'home', redirectTo: '/'},
+    {path: 'home', redirectTo: '/', pathMatch: 'full'},
     {path: 'user-list', component: Users},
     {path: 'form', component: TestForm},
     ];

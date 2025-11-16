@@ -1,8 +1,8 @@
-import { Injectable, inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { User} from './user.interface'
+import { User } from './user.interface'
 import { environment } from '../../environments/environment';
 
 
@@ -11,9 +11,9 @@ import { environment } from '../../environments/environment';
 })
 export class UserService {
 
-  private http =  inject(HttpClient);
+  private http = inject(HttpClient);
 
-  private apiUrl = `${environment.apiUri}/users`  
+  private apiUrl = `${environment.apiUri}/users`
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl).pipe(
@@ -22,14 +22,39 @@ export class UserService {
     )
   }
 
-  
+
   /** Get a single user by ID */
   getUserById(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 
 
-private handleError(error: HttpErrorResponse) {
+  updateUser(id: string, user: User): Observable<User> {
+    console.log('subscribing to update/' + id);
+    let uri = `${this.apiUrl}/${id}`
+    return this.http.put<User>(uri, user)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  deleteUser(id: string) {
+    let uri = `${this.apiUrl}/${id}`
+    return this.http.delete<User>(uri)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+    addGradeHistory(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
+  private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
@@ -43,5 +68,5 @@ private handleError(error: HttpErrorResponse) {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
-  
+
 }

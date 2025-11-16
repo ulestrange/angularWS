@@ -19,6 +19,7 @@ export class UserDetailsComponent {
   private router = inject(Router);
 
   id: string = "";
+  showForm: boolean = false;
   user$ : Observable<User> | undefined
 
 
@@ -46,6 +47,10 @@ export class UserDetailsComponent {
       }})
 
     }
+  }
+
+  editUser(): void{
+    this.showForm = true;
   }
 
 }

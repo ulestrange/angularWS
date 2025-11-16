@@ -1,24 +1,31 @@
-<p>user-details-component works!</p>
+
 
 
 @if (user$ | async; as user)
 {
-<p>{{user.name}}</p>
-<p>{{user.email}}</p>
-<p>{{user.phonenumber}}</p>
-<p>{{user.dob | date : 'dd/MM/yyyy'}}</p>
 
-<p>Tags</p>
-<ol>
-@for (tag of user.tags; track tag)
-{
-<li>{{tag}}</li>
-}
-</ol>
+    @if (!showForm)
+    {
+    <p>{{user.name}}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.phonenumber}}</p>
+    <p>{{user.dob | date : 'dd/MM/yyyy'}}</p>
 
-<button mat-flat-button color="error" (click)="deleteUser()" >Delete </button>
+    <p>Tags</p>
+    <ol>
+    @for (tag of user.tags; track tag)
+    {
+    <li>{{tag}}</li>
+    }
+    </ol>
 
+    <button mat-flat-button color="error" (click)="deleteUser()" >Delete </button>
 
+     <button mat-flat-button  (click)="editUser()" >Edit User </button>
+
+    }
+    @else{
 <app-test-form [user] = user >   </app-test-form>
+    }
 
 }

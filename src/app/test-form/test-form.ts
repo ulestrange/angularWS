@@ -52,8 +52,6 @@ export class TestForm {
     console.log('forms submitted with ');
     console.table(this.userForm.value);
     this.createNew(this.userForm.value as User)
-
-   
   }
   
   createNew (formValues : User)

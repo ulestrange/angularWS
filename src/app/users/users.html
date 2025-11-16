@@ -3,8 +3,8 @@
 @if (users$ | async; as users) {
 
 <ul>
-  @for (user of users; track user.id) {
-  <li>{{ user.name }} {{ user.id }}</li>
+  @for (user of users; track user._id) {
+  <li>{{ user.name }} {{ user._id }}</li>
   }
 </ul>
 } @else {

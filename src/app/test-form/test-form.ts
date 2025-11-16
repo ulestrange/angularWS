@@ -1,6 +1,10 @@
 import { Component, inject } from '@angular/core';
 import {DatePipe } from '@angular/common'
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../users/user.service';
+import { Router } from '@angular/router';
+import { User } from '../users/user.interface';
+
 
 @Component({
   selector: 'app-test-form',
@@ -33,11 +37,13 @@ export class TestForm {
 
 
   private fb = inject (FormBuilder);
+  private userService = inject (UserService);
+  private router = inject (Router);
 
   userForm = this.fb.group({
     name: [''],
     phonenumber: [''],
-    email: [],
+    email: [''],
     dob: [null],
     tags:this.fb.array([])
   });
@@ -45,6 +51,22 @@ export class TestForm {
   onSubmit() {
     console.log('forms submitted with ');
     console.table(this.userForm.value);
+    this.createNew(this.userForm.value as User)
+
+   
+  }
+  
+  createNew (formValues : User)
+  {
+    this.userService.addUser({...formValues})
+    .subscribe({
+      next: response => {   
+        this.router.navigateByUrl('/user-list')
+      },
+      error: (err : Error) => {
+          console.log (err.message);
+         // this.message = err
+      }})
   }
 
 

@@ -46,7 +46,7 @@ export class UserService {
       )
   }
 
-    addGradeHistory(user: User): Observable<User> {
+    addUser(user: User): Observable<User> {
     return this.http.post<User>(this.apiUrl, user)
       .pipe(
         catchError(this.handleError)

@@ -3,8 +3,22 @@
 
 @if (user$ | async; as user)
 {
-{{user.name}}
+<p>{{user.name}}</p>
+<p>{{user.email}}</p>
+<p>{{user.phonenumber}}</p>
+<p>{{user.dob | date : 'dd/MM/yyyy'}}</p>
+
+<p>Tags</p>
+<ol>
+@for (tag of user.tags; track tag)
+{
+<li>{{tag}}</li>
+}
+</ol>
 
 <button mat-flat-button color="error" (click)="deleteUser()" >Delete </button>
+
+
+<app-test-form [user] = user >   </app-test-form>
 
 }

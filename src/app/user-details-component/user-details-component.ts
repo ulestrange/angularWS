@@ -3,11 +3,12 @@ import { ActivatedRoute, ParamMap, Router, RouterModule } from '@angular/router'
 import { UserService } from '../users/user.service';
 import { Observable } from 'rxjs';
 import { User } from '../users/user.interface';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { TestForm } from '../test-form/test-form';
 
 @Component({
   selector: 'app-user-details-component',
-  imports: [RouterModule, AsyncPipe],
+  imports: [RouterModule, AsyncPipe, TestForm, DatePipe],
   templateUrl: './user-details-component.html',
   styleUrl: './user-details-component.scss'
 })
@@ -32,6 +33,7 @@ export class UserDetailsComponent {
 
 
     deleteUser() : void {
+
 
     if (this.id) {
     this.userService.deleteUser(this.id)

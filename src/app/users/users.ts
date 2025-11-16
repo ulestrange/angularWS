@@ -3,10 +3,11 @@ import { UserService } from './user.service';
 import { Observable } from 'rxjs';
 import { User } from './user.interface'
 import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-users',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: './users.html',
   styleUrl: './users.scss'
 })

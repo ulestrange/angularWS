@@ -30,4 +30,20 @@ export class UserDetailsComponent {
     }
   }
 
+
+    deleteUser() : void {
+
+    if (this.id) {
+    this.userService.deleteUser(this.id)
+    .subscribe({
+      next: response => {   
+        this.router.navigateByUrl('/user-list')
+      },
+      error: (err : Error) => {
+          console.log (err.message);
+      }})
+
+    }
+  }
+
 }

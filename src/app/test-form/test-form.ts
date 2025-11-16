@@ -92,17 +92,7 @@ user.tags.forEach(tag => {
     this.createNew(this.userForm.value as User)
   }
 
-   populateTags(tagStrings: string[])
-    {
-      const tagFormArray = this.userForm.get('tags') as FormArray;
 
-      tagStrings.forEach (tag => {
-         const tagControl = this.fb.control('tag');
-         this.tags.push(tagControl);
-      })
-
-      //return tagFormArray;
-    }
 
   
   createNew (formValues : User)

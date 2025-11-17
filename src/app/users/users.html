@@ -1,16 +1,27 @@
 <h2>User List</h2>
 
+ <div class = "container responsive-grid">
+
 @if (users$ | async; as users) {
 
-<ul>
-  @for (user of users; track user._id) {
-  <li>{{ user.name }} {{ user._id }}</li>
+ 
 
-  <a
+
+  @for (user of users; track user._id) {
+    <mat-card>
+      <mat-card-content>
+{{ user.name }} {{ user._id }}
+</mat-card-content>
+<mat-card-actions>
+  <a  mat-raised-button color="primary"
     [routerLink] = "['/user-list',user._id]" >VIEW DETAILS</a>
-  }
-</ul>
+    </mat-card-actions>
+   </mat-card>}
+ 
+
+
 } @else {
 Loading users...
 
 }
+</div>

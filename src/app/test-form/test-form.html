@@ -1,58 +1,56 @@
-<p>test-form works!</p>
-
-<!-- <label for="username">User Name: </label>
-<input id="username" type="text" [formControl]="userName">
-
-<label for="dob">Date of Birth </label>
-<input id="dob" type="date" [formControl]="dob">
-
-<p>Current Value {{userName.value}}</p>
-
-<p>Current Value {{dob.value | date}}</p>
-
-<button type="button" (click)="updateName()">Update Name</button> -->
-
-
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
-  <div>
-    <label for="name">Name: </label>
-    <input id="name" type="text" formControlName="name" />
-  </div>
-  <div>
-    <label for="phonenumber">
-      Phone Number </label>
-    <input type="tel" formControlName="phonenumber" id="phonenumber" />
-  </div>
-  <div>
-    <label for="email">
-      Email: </label>
-    <input type="email" formControlName="email" id="email" />
-  </div>
-  <div>
 
-    <label for="dob">
-      Date of Birth (optional): </label>
-    <input type="date" formControlName="dob" id="dob" />
+  <mat-card>
+    <mat-card-header>Enter Data</mat-card-header>
 
-  </div>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label> Name: </mat-label>
+        <input id="name" type="text" formControlName="name" matInput />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          Phone Number </mat-label>
+        <input type="tel" formControlName="phonenumber" id="phonenumber" matInput />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label for="email">
+          Email: </mat-label>
+        <input type="email" formControlName="email" id="email" matInput />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
 
+        <mat-label for="dob">
+          Date of Birth (optional): </mat-label>
+        <input type="date" formControlName="dob" id="dob" matInput />
 
-  <div formArrayName="tags">
-
-    @for(tag of tags.controls; track i ; let i=$index;)
-    {
-    <div>
-      <label for="tag-{{i}}">Tag {{i+1}}:</label>
-      <input [formControlName]="i" placeholder="Enter tag" id="tag-{{i}}" />
-      <button type="button" (click)="removeTag(i)">Remove</button>
-    </div>
-  }
-    <button type="button" (click)="addTag()">Add Tag</button>
-  </div>
+      </mat-form-field>
 
 
-  <!-- <button type="button" (click)="addTag()">Add Tag</button> -->
-  <button type="submit">Submit</button>
+      <div formArrayName="tags">
+
+        @for(tag of tags.controls; track i ; let i=$index;)
+        {
+        <div>
+          <mat-form-field>
+            <mat-label >Tag {{i+1}}:</mat-label>
+            <input [formControlName]="i" placeholder="Enter tag" id="tag-{{i}}" matInput />
+            <button mat-button="button" aria-label="Remove item" (click)="removeTag(i)">
+              <mat-icon>delete</mat-icon>
+              Remove</button>
+          </mat-form-field>
+        </div>
+        }
+
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button type="button" mat-flat-button (click)="addTag()">Add Tag</button>
+      <button type="submit" mat-raised-button [disabled]="userForm.invalid">Submit</button>
+    </mat-card-actions>
+  </mat-card>
 </form>
 
 <div>Values
@@ -62,7 +60,7 @@
   <p>{{userForm.get('dob')?.value | date}}</p>
 </div>
 
-  <!-- <div formArrayName="tags">
+<!-- <div formArrayName="tags">
     @for (tag of tags.controls; track tag ; let i=$index; ){
     <div>  </div> [formControlName]="i"> 
       <label for="tag-{{i}}">tag {{i+1}}:</label>

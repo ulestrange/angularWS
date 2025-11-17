@@ -72,9 +72,11 @@ export class TestForm {
 
         this.tags.clear();
 
-        user.tags.forEach(tag => {
-          this.tags.push(this.fb.control(tag));
-        });
+        if (user.tags) {
+          user.tags.forEach(tag => {
+            this.tags.push(this.fb.control(tag));
+          });
+        }
 
 
       }

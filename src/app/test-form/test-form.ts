@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common'
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../users/user.service';
 import { Router } from '@angular/router';
 import { User } from '../users/user.interface';
 import { MatButtonModule } from '@angular/material/button'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule} from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input'
 import { MatCardModule } from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @Component({
@@ -62,8 +62,8 @@ export class TestForm {
     }
 
     this.userForm = this.fb.group({
-      name: [''],
-      phonenumber: [''],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      phonenumber: ['',[Validators.required, Validators.pattern(/^08[3-9]\d{7}$/)]],
       email: [''],
       dob: [null],
       tags: this.fb.array([])
@@ -153,6 +153,13 @@ export class TestForm {
 
   removeTag(index: number): void {
     this.tags.removeAt(index);
+  }
+
+  get name() {
+    return this.userForm.get('name');
+  }
+  get phonenumber() {
+    return this.userForm.get('phonenumber');
   }
 
 

@@ -7,11 +7,31 @@
       <mat-form-field appearance="outline">
         <mat-label> Name: </mat-label>
         <input id="name" type="text" formControlName="name" matInput />
+        @if (!name?.value){
+          <mat-hint>Must be at least 3 characters</mat-hint>
+        }
+        @if (name?.hasError('required')){
+          <mat-error>Name is required</mat-error>
+        }
+        @else if (name?.hasError('minlength'))
+        {
+          <mat-error>Name must be at least 3 characters</mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>
           Phone Number </mat-label>
         <input type="tel" formControlName="phonenumber" id="phonenumber" matInput />
+         @if (!phonenumber?.value){
+          <mat-hint>Irish mobile phone number only</mat-hint>
+        }
+        @if (phonenumber?.hasError('required')){
+          <mat-error>Phone number is required</mat-error>
+        }
+        @else if (phonenumber?.hasError('pattern'))
+        {
+          <mat-error>Irish Phone number only 08xxxxxxx</mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label for="email">
@@ -28,6 +48,7 @@
 
 
       <div formArrayName="tags">
+        <fieldset>
 
         @for(tag of tags.controls; track i ; let i=$index;)
         {
@@ -41,7 +62,7 @@
           </mat-form-field>
         </div>
         }
-
+</fieldset>
       </div>
 
     </mat-card-content>
@@ -53,12 +74,12 @@
   </mat-card>
 </form>
 
-<div>Values
+<!-- <div>Values
   <p>{{userForm.get('name')?.value}}</p>
   <p>{{userForm.get('phonenumber')?.value}}</p>
   <p>{{userForm.get('email')?.value}}</p>
   <p>{{userForm.get('dob')?.value | date}}</p>
-</div>
+</div> -->
 
 <!-- <div formArrayName="tags">
     @for (tag of tags.controls; track tag ; let i=$index; ){

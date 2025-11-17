@@ -5,10 +5,12 @@ import { Observable } from 'rxjs';
 import { User } from '../users/user.interface';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { TestForm } from '../test-form/test-form';
+import { MatButton } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-user-details-component',
-  imports: [RouterModule, AsyncPipe, TestForm, DatePipe],
+  imports: [RouterModule, AsyncPipe, TestForm, DatePipe, MatCardModule, MatButton],
   templateUrl: './user-details-component.html',
   styleUrl: './user-details-component.scss'
 })

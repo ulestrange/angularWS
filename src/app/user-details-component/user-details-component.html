@@ -13,14 +13,14 @@
 
         <p>Tags</p>
         <ol>
-            @for (tag of user.tags; track tag)
+            @for (tag of user.tags; track $index)
             {
             <li>{{tag}}</li>
             }
         </ol>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-flat-button color="error" (click)="deleteUser()">Delete </button>
+        <button mat-flat-button color="error" type="button" (click)="deleteUser()">Delete </button>
 
         <button mat-raised-button (click)="editUser()">Edit User </button>
     </mat-card-actions>
@@ -28,6 +28,11 @@
 }
 @else{
 <app-test-form [user]=user> </app-test-form>
+<mat-card>
+    <mat-card-actions>
+        <button mat-raised-button (click)="cancelEdit()">Cancel changes and close form </button>
+    </mat-card-actions>
+</mat-card>
 }
 
 }

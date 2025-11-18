@@ -1,4 +1,4 @@
-Test Form
+
 
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
 
@@ -63,7 +63,7 @@ Test Form
           <mat-form-field>
             <mat-label >Tag {{i+1}}:</mat-label>
             <input [formControlName]="i" placeholder="Enter tag" id="tag-{{i}}" matInput />
-            <button mat-button="button" aria-label="Remove item" (click)="removeTag(i)">
+            <button mat-button="button" type="button" aria-label="Remove item" (click)="removeTag(i)">
               <mat-icon>delete</mat-icon>
               Remove</button>
           </mat-form-field>

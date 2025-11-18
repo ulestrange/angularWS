@@ -55,4 +55,8 @@ export class UserDetailsComponent {
     this.showForm = true;
   }
 
+  cancelEdit(): void{
+    this.showForm = false;
+  }
+
 }

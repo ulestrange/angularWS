@@ -22,7 +22,7 @@
     <mat-card-actions>
         <button mat-flat-button color="error" type="button" (click)="deleteUser()">Delete </button>
 
-        <button mat-raised-button (click)="editUser()">Edit User </button>
+        <button mat-raised-button type="button" (click)="editUser()">Edit User </button>
     </mat-card-actions>
 </mat-card>
 }
@@ -30,7 +30,7 @@
 <app-test-form [user]=user> </app-test-form>
 <mat-card>
     <mat-card-actions>
-        <button mat-raised-button (click)="cancelEdit()">Cancel changes and close form </button>
+        <button mat-raised-button type="button" (click)="cancelEdit()">Cancel changes and close form </button>
     </mat-card-actions>
 </mat-card>
 }

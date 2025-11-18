@@ -17,15 +17,15 @@ import { MatCardModule } from '@angular/material/card';
 export class UserDetailsComponent {
 
   private route = inject(ActivatedRoute);
-  private userService = inject (UserService);
+  private userService = inject(UserService);
   private router = inject(Router);
 
   id: string = "";
   showForm: boolean = false;
-  user$ : Observable<User> | undefined
+  user$: Observable<User> | undefined
 
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || "";
 
     if (this.id) {
@@ -35,27 +35,30 @@ export class UserDetailsComponent {
   }
 
 
-    deleteUser() : void {
+  deleteUser(): void {
+
+    var result = confirm("Are you sure you want to delete?");
 
 
-    if (this.id) {
-    this.userService.deleteUser(this.id)
-    .subscribe({
-      next: response => {   
-        this.router.navigateByUrl('/user-list')
-      },
-      error: (err : Error) => {
-          console.log (err.message);
-      }})
+    if (result && this.id) {
+      this.userService.deleteUser(this.id)
+        .subscribe({
+          next: response => {
+            this.router.navigateByUrl('/user-list')
+          },
+          error: (err: Error) => {
+            console.log(err.message);
+          }
+        })
 
     }
   }
 
-  editUser(): void{
+  editUser(): void {
     this.showForm = true;
   }
 
-  cancelEdit(): void{
+  cancelEdit(): void {
     this.showForm = false;
   }
 

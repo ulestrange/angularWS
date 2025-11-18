@@ -1,5 +1,5 @@
 Test Form
-<!-- 
+
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
 
   <mat-card>
@@ -48,7 +48,9 @@ Test Form
         <mat-label for="dob">
           Date of Birth (optional): </mat-label>
         <input type="date" formControlName="dob" id="dob" matInput />
-
+      @if (dob?.invalid){
+          <mat-error>Date of birth must be in the past</mat-error>
+      }
       </mat-form-field>
 
 
@@ -77,7 +79,7 @@ Test Form
       <button type="submit" mat-raised-button [disabled]="userForm.invalid">Submit</button>
     </mat-card-actions>
   </mat-card>
-</form> -->
+</form> 
 
 <!-- <div>Values
   <p>{{userForm.get('name')?.value}}</p>

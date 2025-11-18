@@ -19,9 +19,11 @@
             }
         </ol>
     </mat-card-content>
-    <button mat-flat-button color="error" (click)="deleteUser()">Delete </button>
+    <mat-card-actions>
+        <button mat-flat-button color="error" (click)="deleteUser()">Delete </button>
 
-    <button mat-raised-button (click)="editUser()">Edit User </button>
+        <button mat-raised-button (click)="editUser()">Edit User </button>
+    </mat-card-actions>
 </mat-card>
 }
 @else{

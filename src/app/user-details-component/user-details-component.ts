@@ -7,6 +7,9 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { TestForm } from '../test-form/test-form';
 import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-details-component',
@@ -19,6 +22,8 @@ export class UserDetailsComponent {
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
   private router = inject(Router);
+  public dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
 
   id: string = "";
   showForm: boolean = false;
@@ -33,14 +38,13 @@ export class UserDetailsComponent {
 
     }
   }
+  deleteUser() {
+    this.openConfirmDeleteDialog();
+  }
 
 
-  deleteUser(): void {
-
-    var result = confirm("Are you sure you want to delete?");
-
-
-    if (result && this.id) {
+  deleteItem(): void {
+    if (this.id) {
       this.userService.deleteUser(this.id)
         .subscribe({
           next: response => {
@@ -48,9 +52,9 @@ export class UserDetailsComponent {
           },
           error: (err: Error) => {
             console.log(err.message);
+            this.openErrorSnackBar(err.message)
           }
         })
-
     }
   }
 
@@ -61,5 +65,32 @@ export class UserDetailsComponent {
   cancelEdit(): void {
     this.showForm = false;
   }
+
+  openConfirmDeleteDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '450px',
+      data: {
+        title: "Delete User ",
+        message: "Are you sure you want to delete a user"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // User clicked "Yes", perform the delete operation
+        this.deleteItem();
+      }
+    });
+
+  }
+
+
+  openErrorSnackBar(message: string): void {
+  this.snackBar.open(message, 'Dismiss', {
+    duration: 15000, // Set the duration for how long the snackbar should be visible (in milliseconds)
+    panelClass: ['error-snackbar'], // You can define custom styles for the snackbar
+  });
+}
+
 
 }

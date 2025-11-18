@@ -1,5 +1,5 @@
-
-
+Test Form
+<!-- 
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
 
   <mat-card>
@@ -39,6 +39,9 @@
         <mat-label for="email">
           Email: </mat-label>
         <input type="email" formControlName="email" id="email" matInput />
+          @if (email?.hasError('email')){
+          <mat-error>Email is incorrect</mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
 
@@ -74,7 +77,7 @@
       <button type="submit" mat-raised-button [disabled]="userForm.invalid">Submit</button>
     </mat-card-actions>
   </mat-card>
-</form>
+</form> -->
 
 <!-- <div>Values
   <p>{{userForm.get('name')?.value}}</p>

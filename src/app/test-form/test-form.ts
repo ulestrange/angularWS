@@ -11,11 +11,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { minimumAgeValidator } from '../validators/minimumAgeValidator';
 
 
 @Component({
   selector: 'app-test-form',
-  imports: [ReactiveFormsModule, FormsModule, DatePipe,
+  imports: [ReactiveFormsModule, FormsModule, 
     MatButtonModule, MatFormFieldModule, MatInputModule,
     MatCardModule, MatIconModule
   ],
@@ -64,8 +65,8 @@ export class TestForm {
     this.userForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       phonenumber: ['',[Validators.required, Validators.pattern(/^08[3-9]\d{7}$/)]],
-      email: [''],
-      dob: [null],
+      email: ['',[Validators.required, Validators.email]],
+      dob: [null, [[minimumAgeValidator(0)]]],
       tags: this.fb.array([])
     })
 
@@ -97,70 +98,77 @@ export class TestForm {
 
   }
 
-  onSubmit() {
-    console.log('forms submitted with ');
-    console.table(this.userForm.value);
+  // onSubmit() {
+  //   console.log('forms submitted with ');
+  //   console.table(this.userForm.value);
 
 
-    const currentUser = this.user();
+  //   const currentUser = this.user();
 
-    if (!currentUser || !currentUser._id) {
+  //   if (!currentUser || !currentUser._id) {
 
-      this.createNew(this.userForm.value as User);
-    } else {
+  //     this.createNew(this.userForm.value as User);
+  //   } else {
 
-      this.updateExisting(currentUser._id, this.userForm.value as User)
-    }
-  }
-
-
-  updateExisting(id: string, updatedValues: User) {
-    this.userService.updateUser(id, { ...updatedValues })
-      .subscribe({
-        next: response => {
-          this.router.navigateByUrl('/user-list')
-        },
-        error: (err: Error) => {
-          console.log(err.message);
-          // this.message = err
-        }
-      })
-  }
+  //     this.updateExisting(currentUser._id, this.userForm.value as User)
+  //   }
+  // }
 
 
-  createNew(formValues: User) {
-    this.userService.addUser({ ...formValues })
-      .subscribe({
-        next: response => {
-          this.router.navigateByUrl('/user-list')
-        },
-        error: (err: Error) => {
-          console.log(err.message);
-          // this.message = err
-        }
-      })
-  }
+  // updateExisting(id: string, updatedValues: User) {
+  //   this.userService.updateUser(id, { ...updatedValues })
+  //     .subscribe({
+  //       next: response => {
+  //         this.router.navigateByUrl('/user-list')
+  //       },
+  //       error: (err: Error) => {
+  //         console.log(err.message);
+  //         // this.message = err
+  //       }
+  //     })
+  // }
 
 
-  addTag(): void {
-    const tagControl = this.fb.control('');
-    this.tags.push(tagControl);
-  }
+  // createNew(formValues: User) {
+  //   this.userService.addUser({ ...formValues })
+  //     .subscribe({
+  //       next: response => {
+  //         this.router.navigateByUrl('/user-list')
+  //       },
+  //       error: (err: Error) => {
+  //         console.log(err.message);
+  //         // this.message = err
+  //       }
+  //     })
+  // }
+
+
+  // addTag(): void {
+  //   const tagControl = this.fb.control('');
+  //   this.tags.push(tagControl);
+  // }
 
   get tags(): FormArray {
     return this.userForm.get('tags') as FormArray;
   }
 
-  removeTag(index: number): void {
-    this.tags.removeAt(index);
-  }
+  // removeTag(index: number): void {
+  //   this.tags.removeAt(index);
+  // }
 
-  get name() {
-    return this.userForm.get('name');
-  }
-  get phonenumber() {
-    return this.userForm.get('phonenumber');
-  }
+  // get name() {
+  //   return this.userForm.get('name');
+  // }
+  // get phonenumber() {
+  //   return this.userForm.get('phonenumber');
+  // }
+  //   get email() {
+  //   return this.userForm.get('email');
+  // }
+  //     get dob() {
+  //   return this.userForm.get('dob');
+  // }
 
 
-}
+
+  }

@@ -1,0 +1,31 @@
+@if (user$ | async; as user)
+{
+
+@if (!showForm)
+{
+<mat-card>
+    <mat-card-header> User Details</mat-card-header>
+    <mat-card-content>
+        <p>{{user.name}}</p>
+        <p>{{user.email}}</p>
+        <p>{{user.phonenumber}}</p>
+        <p>{{user.dob | date : 'dd/MM/yyyy'}}</p>
+
+        <p>Tags</p>
+        <ol>
+            @for (tag of user.tags; track tag)
+            {
+            <li>{{tag}}</li>
+            }
+        </ol>
+    </mat-card-content>
+    <button mat-flat-button color="error" (click)="deleteUser()">Delete </button>
+
+    <button mat-raised-button (click)="editUser()">Edit User </button>
+</mat-card>
+}
+@else{
+<app-test-form [user]=user> </app-test-form>
+}
+
+}

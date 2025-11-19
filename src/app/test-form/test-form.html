@@ -1,5 +1,3 @@
-
-
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
 
   <mat-card>
@@ -10,66 +8,67 @@
         <mat-label> Name: </mat-label>
         <input id="name" type="text" formControlName="name" matInput />
         @if (!name?.value){
-          <mat-hint>Must be at least 3 characters</mat-hint>
+        <mat-hint>Must be at least 3 characters</mat-hint>
         }
         @if (name?.hasError('required')){
-          <mat-error>Name is required</mat-error>
+        <mat-error>Name is required</mat-error>
         }
         @else if (name?.hasError('minlength'))
         {
-          <mat-error>Name must be at least 3 characters</mat-error>
+        <mat-error>Name must be at least 3 characters</mat-error>
         }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>
           Phone Number </mat-label>
         <input type="tel" formControlName="phonenumber" id="phonenumber" matInput />
-         @if (!phonenumber?.value){
-          <mat-hint>Irish mobile phone number only</mat-hint>
+        @if (!phonenumber?.value){
+        <mat-hint>Irish mobile phone number only</mat-hint>
         }
         @if (phonenumber?.hasError('required')){
-          <mat-error>Phone number is required</mat-error>
+        <mat-error>Phone number is required</mat-error>
         }
         @else if (phonenumber?.hasError('pattern'))
         {
-          <mat-error>Irish Phone number only 08xxxxxxx</mat-error>
+        <mat-error>Irish Phone number only 08xxxxxxx</mat-error>
         }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label for="email">
           Email: </mat-label>
         <input type="email" formControlName="email" id="email" matInput />
-          @if (email?.hasError('email')){
-          <mat-error>Email is incorrect</mat-error>
+        @if (email?.hasError('required')){
+        <mat-error>Email is required</mat-error>
+        }@if (email?.hasError('email')){
+        <mat-error>Email is incorrect</mat-error>
         }
       </mat-form-field>
       <mat-form-field appearance="outline">
-
         <mat-label for="dob">
           Date of Birth (optional): </mat-label>
         <input type="date" formControlName="dob" id="dob" matInput />
-      @if (dob?.invalid){
-          <mat-error>Date of birth must be in the past</mat-error>
-      }
+        @if (dob?.invalid){
+        <mat-error>Date of birth must be in the past</mat-error>
+        }
       </mat-form-field>
 
 
       <div formArrayName="tags">
         <fieldset>
 
-        @for(tag of tags.controls; track tag ; let i=$index;)
-        {
-        <div>
-          <mat-form-field>
-            <mat-label >Tag {{i+1}}:</mat-label>
-            <input [formControlName]="i" placeholder="Enter tag" id="tag-{{i}}" matInput />
-            <button mat-button="button" type="button" aria-label="Remove item" (click)="removeTag(i)">
-              <mat-icon>delete</mat-icon>
-              Remove</button>
-          </mat-form-field>
-        </div>
-        }
-</fieldset>
+          @for(tag of tags.controls; track tag ; let i=$index;)
+          {
+          <div>
+            <mat-form-field>
+              <mat-label>Tag {{i+1}}:</mat-label>
+              <input [formControlName]="i" placeholder="Enter tag" id="tag-{{i}}" matInput />
+              <button mat-button="button" type="button" aria-label="Remove item" (click)="removeTag(i)">
+                <mat-icon>delete</mat-icon>
+                Remove</button>
+            </mat-form-field>
+          </div>
+          }
+        </fieldset>
       </div>
 
     </mat-card-content>
@@ -79,7 +78,7 @@
       <button type="submit" mat-raised-button [disabled]="userForm.invalid">Submit</button>
     </mat-card-actions>
   </mat-card>
-</form> 
+</form>
 
 <!-- <div>Values
   <p>{{userForm.get('name')?.value}}</p>

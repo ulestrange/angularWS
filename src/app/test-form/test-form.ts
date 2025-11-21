@@ -13,6 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { minimumAgeValidator } from '../validators/minimumAgeValidator';
 import { M } from '@angular/cdk/keycodes';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class TestForm {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   user = input<User | undefined>();
 
@@ -123,10 +125,11 @@ export class TestForm {
           this.router.navigateByUrl('/user-list')
         },
         error: (err: Error) => {
-          console.log(err.message);
-          // this.message = err
+            console.log(err.message);
+            this.openErrorSnackBar(err.message)
+          }
         }
-      })
+      )
   }
 
 
@@ -137,10 +140,10 @@ export class TestForm {
           this.router.navigateByUrl('/user-list')
         },
         error: (err: Error) => {
-          console.log(err.message);
-          // this.message = err
-        }
-      })
+            console.log(err.message);
+            this.openErrorSnackBar(err.message)
+          }
+        })
   }
 
 
@@ -170,6 +173,11 @@ export class TestForm {
     return this.userForm.get('dob');
   }
 
-
+  openErrorSnackBar(message: string): void {
+  this.snackBar.open(message, 'Dismiss', {
+    duration: 15000, // Set the duration for how long the snackbar should be visible (in milliseconds)
+    panelClass: ['error-snackbar'], // You can define custom styles for the snackbar
+  });
+}
 
 }

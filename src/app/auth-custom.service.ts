@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { environment } from '../environments/environment';
 import { User } from './users/user.interface';
@@ -11,8 +11,10 @@ export class AuthCustomService {
   
   readonly currentUser$ : BehaviorSubject<User | null> ;
   readonly isAuthenticated$ : BehaviorSubject<boolean>;
+
+  private http = inject(HttpClient)
   
-  constructor(private http: HttpClient) {
+  constructor() {
 
     this.currentUser$ = new BehaviorSubject<User | null> 
     (JSON.parse(localStorage.getItem('user') || '{}'));
@@ -84,7 +86,6 @@ export class AuthCustomService {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.currentUser$.next(null);
- //   this.token$.next('');
     this.isAuthenticated$.next(false);
   }
 

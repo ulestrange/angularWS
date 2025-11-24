@@ -46,7 +46,7 @@ export class UserService {
       )
   }
 
-    addUser(user: User): Observable<User> {
+  addUser(user: User): Observable<User> {
     return this.http.post<User>(this.apiUrl, user)
       .pipe(
         catchError(this.handleError)
@@ -61,6 +61,15 @@ export class UserService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
+
+      if (error.status == 401 || error.status == 403) {
+
+        console.log('authorisation issue ' , error.status );
+         return throwError(() => new Error('You are not authorised for that action'));
+
+      }
+
+
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
     }

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthCustomService } from '../auth-custom.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -14,11 +14,15 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  returnUrl: string = '';
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthCustomService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
+  private route = inject(ActivatedRoute)
+
+
   constructor(
 
   ) {
@@ -28,6 +32,11 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit(){
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+
   onSubmit() {
     const values = this.loginForm.value;
     console.log('submit with ');
@@ -36,7 +45,7 @@ export class LoginComponent {
       subscribe({
         next: response => {
           console.log('user is logged in'),
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl(this.returnUrl);
         },
         error: (err: Error) => {
           this.openErrorSnackBar('Incorrect email or password')

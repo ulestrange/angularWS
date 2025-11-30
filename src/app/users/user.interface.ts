@@ -6,7 +6,8 @@ export interface User {
     dob?: Date;
     tags: string[];
     dateJoined?: Date,
-    lastUpdated?: Date
+    lastUpdated?: Date,
+    role?: string
 }
 
 

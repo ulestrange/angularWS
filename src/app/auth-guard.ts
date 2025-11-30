@@ -12,5 +12,16 @@ export const authGuard: CanActivateFn = (route, state) => {
     router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
     return false;
   }
+};
 
+export const adminGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthCustomService);
+  const router = inject(Router);
+
+  if (authService.currentUser$.value?.role === 'admin') {
+    return true;
+  } else {
+    router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+    return false;
+  }
 };

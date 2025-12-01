@@ -1,27 +1,27 @@
 <h2>User List</h2>
 
- <div class = "container responsive-grid">
+<div class="container responsive-grid">
 
-@if (users$ | async; as users) {
+  @if (users$ | async; as users) {
 
- 
+
 
 
   @for (user of users; track user._id) {
-    <mat-card>
-      <mat-card-content>
-{{ user.name }} {{ user._id }}
-</mat-card-content>
-<mat-card-actions>
-  <a  mat-raised-button color="primary"
-    [routerLink] = "['/user-list',user._id]" >VIEW DETAILS</a>
+  <mat-card>
+    <mat-card-content>
+      {{ user.name }} {{ user._id }}
+    </mat-card-content>
+    @if (isAuthenciated$ | async){
+    <mat-card-actions>
+      <a mat-raised-button color="primary" [routerLink]="['/user-list',user._id]">VIEW DETAILS</a>
     </mat-card-actions>
-   </mat-card>}
- 
+    }
+  </mat-card>}
 
 
-} @else {
-Loading users...
+  } @else {
+  Loading users...
 
-}
+  }
 </div>
